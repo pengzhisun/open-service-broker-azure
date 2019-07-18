@@ -189,13 +189,15 @@ You should also ensure that the `Microsoft.Compute` and `Microsoft.Network` prov
     ```
 1. Deploy Service Catalog on the cluster:
     ```console
-    helm repo add svc-cat https://svc-catalog-charts.storage.googleapis.com
+    helm repo add svc-cat https://mirror.azure.cn/kubernetes/svc-catalog-charts/
     helm install svc-cat/catalog --name catalog --namespace catalog \
        --set apiserver.storage.etcd.persistence.enabled=true \
        --set apiserver.healthcheck.enabled=false \
        --set controllerManager.healthcheck.enabled=false \
        --set apiserver.verbosity=2 \
-       --set controllerManager.verbosity=2
+       --set controllerManager.verbosity=2 \
+       --set image=quay.azk8s.cn/kubernetes-service-catalog/service-catalog:v0.2.1 \
+       --set apiserver.storage.etcd.image=quay.azk8s.cn/coreos/etcd:latest
     ```
 
 1. Deploy Open Service Broker for Azure on the cluster:
